@@ -58,124 +58,112 @@
     }
 
     /* ===== INTRO ===== */
-    .intro {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background:
-        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.38), transparent 24%),
-        radial-gradient(circle at 50% 75%, rgba(255,255,255,0.16), transparent 28%),
-        var(--bg-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      cursor: pointer;
-      transition: opacity 1s ease, visibility 1s ease, filter 1s ease;
-    }
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap');
 
-    .intro.hide {
-      opacity: 0;
-      visibility: hidden;
-      filter: blur(10px);
-    }
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    linear-gradient(rgba(235,235,235,0.10), rgba(235,235,235,0.10)),
+    url("SplashIntro.jpg") center center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 1.1s ease, visibility 1.1s ease, filter 1.1s ease;
+}
 
-    .intro-inner {
-      position: relative;
-      z-index: 4;
-      width: 100%;
-      max-width: 900px;
-      padding: 24px;
-      text-align: center;
-    }
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,0.18), transparent 24%),
+    linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  z-index: 1;
+  pointer-events: none;
+}
 
-    .intro-title {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(48px, 8vw, 92px);
-      line-height: 0.95;
-      letter-spacing: 0.01em;
-      font-weight: 500;
-      color: #111;
-      opacity: 0;
-      transform: translateY(22px);
-      animation: titleRise 1.5s ease forwards 0.55s;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.14);
-    }
+.intro.hide {
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(10px);
+}
 
-    .intro-glow {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      animation: introBreath 7s ease-in-out infinite alternate;
-    }
+.intro-inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 900px;
+  padding: 24px;
+  text-align: center;
+  color: #111;
+}
 
-    /* SVG flowers */
-    .calla-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
+.intro-monogram {
+  margin: 0 0 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(52px, 9vw, 110px);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: introFadeUp 1.2s ease forwards 0.2s;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.14);
+}
 
-    .stem,
-    .flower-head,
-    .flower-head-2,
-    .spadix {
-      transform-box: fill-box;
-      transform-origin: center;
-    }
+.intro-monogram .divider {
+  display: inline-block;
+  margin: 0 0.08em;
+  font-weight: 400;
+  opacity: 0.7;
+}
 
-    .stem {
-      opacity: 0;
-      animation: stemGrow 1.5s ease forwards;
-    }
+.intro-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 6.5vw, 72px);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(22px);
+  animation: introFadeUp 1.35s ease forwards 0.55s;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.16);
+}
 
-    .flower-head,
-    .flower-head-2 {
-      opacity: 0;
-      animation: bloomOpen 1.6s ease forwards;
-    }
+@keyframes introFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .spadix {
-      opacity: 0;
-      animation: spadixShow 1s ease forwards;
-    }
+@media (max-width: 740px) {
+  .intro {
+    background-position: center center;
+  }
 
-    .float-slow {
-      animation-name: bloomOpen, flowerFloat;
-      animation-duration: 1.6s, 6s;
-      animation-delay: 0.35s, 2.2s;
-      animation-fill-mode: forwards, both;
-      animation-iteration-count: 1, infinite;
-      animation-timing-function: ease, ease-in-out;
-    }
+  .intro-inner {
+    padding: 18px 22px;
+  }
 
-    .float-mid {
-      animation-name: bloomOpen, flowerFloat2;
-      animation-duration: 1.6s, 5.6s;
-      animation-delay: 0.65s, 2.4s;
-      animation-fill-mode: forwards, both;
-      animation-iteration-count: 1, infinite;
-      animation-timing-function: ease, ease-in-out;
-    }
+  .intro-monogram {
+    margin-bottom: 12px;
+    font-size: clamp(48px, 10vw, 82px);
+  }
 
-    .float-fast {
-      animation-name: bloomOpen, flowerFloat3;
-      animation-duration: 1.6s, 5s;
-      animation-delay: 0.95s, 2.6s;
-      animation-fill-mode: forwards, both;
-      animation-iteration-count: 1, infinite;
-      animation-timing-function: ease, ease-in-out;
-    }
-
-    .delay-1 { animation-delay: 0.2s; }
-    .delay-2 { animation-delay: 0.5s; }
-    .delay-3 { animation-delay: 0.8s; }
-    .delay-4 { animation-delay: 1.05s; }
+  .intro-title {
+    font-size: clamp(30px, 7.6vw, 52px);
+  }
+}
 
     @keyframes titleRise {
       to {
@@ -566,16 +554,11 @@
   </audio>
 
   <section class="intro" id="intro">
-    <div class="intro-glow"></div>
-
-    <svg class="calla-svg" viewBox="0 0 1000 1600" preserveAspectRatio="none" aria-hidden="true">
-      <!-- top right large calla -->
-      <g>
-        <path class="stem delay-1" d="M825 0 C 855 120, 885 230, 940 380" fill="none" stroke="#91A072" stroke-width="10" stroke-linecap="round"/>
-        <path class="flower-head float-slow" d="M740 20 C 815 -10, 900 10, 945 70 C 980 118, 980 186, 938 240 C 893 297, 797 310, 726 266 C 656 223, 648 126, 698 66 C 710 51, 724 33, 740 20 Z" fill="#FAFAF6"/>
-        <path class="flower-head-2 float-slow" d="M760 45 C 825 40, 890 80, 917 138 C 889 115, 840 109, 800 116 C 764 124, 732 138, 702 168 C 706 114, 720 77, 760 45 Z" fill="#EEF1E6"/>
-        <path class="spadix" d="M818 106 C 826 124, 829 144, 828 162" fill="none" stroke="#DCCB62" stroke-width="8" stroke-linecap="round"/>
-      </g>
+  <div class="intro-inner">
+    <div class="intro-monogram">D<span class="divider">|</span>V</div>
+    <h1 class="intro-title">Любовь никогда не<br>перестаёт</h1>
+  </div>
+</section>
 
       <!-- bottom left large calla -->
       <g>
